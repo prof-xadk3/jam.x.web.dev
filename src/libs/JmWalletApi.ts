@@ -62,7 +62,7 @@ interface StartMakerRequest {
 }
 
 interface StartTumblerRequest {
-  destination_addresses: [BitcoinAddress]
+  destination_addresses: BitcoinAddress[]
 }
 
 interface DirectSendRequest {

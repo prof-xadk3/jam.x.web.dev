@@ -81,13 +81,28 @@ export default function CurrentWalletAdvanced() {
     const { name: walletName, token } = currentWallet
 
     const externalEntries = walletInfo.accounts[4].branches[0].entries
+    console.log(externalEntries)
     const destination = externalEntries.find((entry: any) => entry.status === 'new').address
+
+    var destinations: string[] = [] as string[]
+
+    externalEntries.every((entry: any) => {
+      if (entry.status === 'new') {
+        destinations.push(entry.address)
+      }
+
+      if (destinations.length >= 3) {
+        return false
+      }
+
+      return true
+    })
 
     try {
       const res = await Api.postTumblerStart(
         { walletName, token },
         {
-          destination_addresses: [destination],
+          destination_addresses: destinations,
         }
       )
 
