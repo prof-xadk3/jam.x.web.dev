@@ -112,6 +112,21 @@ export default function CurrentWalletAdvanced() {
             timelambda: 1.0, // wait for a minute (on average) between txs
             stage1_timelambda_increase: 1.0, // yes actually only wait one minute
             liquiditywait: 10, // after failing to find liquidity, retry after 10 seconds
+            waittime: 1.0,
+            // mixdepthsrc: 0,
+            // restart: false,
+            // schedulefile: 'TUMBLE.schedule',
+            // donateamount: 0,
+            // mincjamount: 100000,
+            // maxbroadcasts: 4,
+            // maxcreatetx: 9,
+            // amtmixdepths: -1,
+            // rounding_chance: 0.25,
+            // rounding_sigfig_weights: [55, 15, 25, 65, 40],
+            // datadir: '',
+            // recoversync: false,
+            // wallet_password_stdin: false,
+            // txfee: -1,
           },
         }
       )
