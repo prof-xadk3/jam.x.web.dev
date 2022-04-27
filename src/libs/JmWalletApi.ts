@@ -63,6 +63,36 @@ interface StartMakerRequest {
 
 interface StartTumblerRequest {
   destination_addresses: BitcoinAddress[]
+  tumbler_options?: TumblerOptions
+}
+
+interface TumblerOptions {
+  mixdepthsrc?: number
+  restart?: boolean
+  schedulefile?: string
+  addrcount?: number
+  makercountrange?: number[]
+  minmakercount?: number
+  mixdepthcount?: number
+  txcountparams?: number[]
+  mintxcount?: number
+  donateamount?: number
+  timelambda?: number
+  stage1_timelambda_increase?: number
+  waittime?: number
+  mincjamount?: number
+  liquiditywait?: number
+  maxbroadcasts?: number
+  maxcreatetx?: number
+  amtmixdepths?: number
+  rounding_chance?: number
+  rounding_sigfig_weights?: number[]
+  datadir?: string
+  recoversync?: boolean
+  wallet_password_stdin?: boolean
+  txfee?: number
+  max_cj_fee_abs?: number
+  max_cj_fee_rel?: number
 }
 
 interface DirectSendRequest {

@@ -6,7 +6,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 ENV REPO https://github.com/dnlggr/joinmarket-clientserver
-ENV REPO_REF tumbler-rpc
+ENV REPO_REF tumbler-rpc-options
 
 WORKDIR /src
 RUN git clone "$REPO" . --depth=10 --branch "$REPO_REF" && git checkout "$REPO_REF"
