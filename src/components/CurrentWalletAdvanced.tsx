@@ -82,6 +82,7 @@ export default function CurrentWalletAdvanced() {
 
     const externalEntries = walletInfo.accounts[4].branches[0].entries
 
+    const addrCount = 1 // todo this should be at least 3 in a real world scenario.
     var destinations: string[] = [] as string[]
 
     externalEntries.every((entry: any) => {
@@ -89,7 +90,7 @@ export default function CurrentWalletAdvanced() {
         destinations.push(entry.address)
       }
 
-      if (destinations.length >= 3) {
+      if (destinations.length >= addrCount) {
         return false
       }
 
@@ -102,16 +103,15 @@ export default function CurrentWalletAdvanced() {
         {
           destination_addresses: destinations,
           tumbler_options: {
-            addrcount: 3,
-            makercountrange: [1, 1],
-            minmakercount: 1,
-            mixdepthcount: 2,
-            txcountparams: [1, 1],
-            mintxcount: 1,
-            timelambda: 1.0,
-            stage1_timelambda_increase: 1.0,
-            waittime: 1.0,
-            liquiditywait: 10,
+            addrcount: addrCount, // how many addresses the funds should be sent to after tumbling
+            minmakercount: 1, // we only ever want 1 maker
+            makercountrange: [1, 1], // no variance in maker counts
+            mixdepthcount: 3, // tumble through 3 mixdepths in total
+            mintxcount: 1, // do one tx per mixdepth
+            txcountparams: [1, 1], // no variance in tx counts per mixdepth
+            timelambda: 1.0, // wait for a minute (on average) between txs
+            stage1_timelambda_increase: 1.0, // yes actually only wait one minute
+            liquiditywait: 10, // after failing to find liquidity, retry after 10 seconds
           },
         }
       )
