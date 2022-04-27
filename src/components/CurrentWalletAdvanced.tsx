@@ -81,7 +81,6 @@ export default function CurrentWalletAdvanced() {
     const { name: walletName, token } = currentWallet
 
     const externalEntries = walletInfo.accounts[4].branches[0].entries
-    console.log(externalEntries)
     const destination = externalEntries.find((entry: any) => entry.status === 'new').address
 
     var destinations: string[] = [] as string[]
