@@ -10,6 +10,7 @@ import DisplayUTXOs from './DisplayUTXOs'
 // @ts-ignore
 import { useCurrentWallet, useCurrentWalletInfo, useSetCurrentWalletInfo } from '../context/WalletContext'
 import * as Api from '../libs/JmWalletApi'
+import ScheduleParser from '../libs/ParseSchedule'
 
 type Utxos = any[]
 type Alert = { message: string; variant: string }
@@ -163,7 +164,8 @@ export default function CurrentWalletAdvanced() {
 
       if (res.ok) {
         const data = await res.json()
-        console.log(data)
+        const schedule = new ScheduleParser(data.schedule).parse()
+        console.log(schedule)
       }
     } catch (e: any) {
       console.log(e.message)
