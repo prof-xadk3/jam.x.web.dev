@@ -2,7 +2,9 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as rb from 'react-bootstrap'
+import classnames from 'classnames'
 import { ConfirmModal } from './Modal'
+import Sprite from './Sprite'
 import { useTranslation } from 'react-i18next'
 import { walletDisplayName } from '../utils'
 import * as Api from '../libs/JmWalletApi'
@@ -20,18 +22,20 @@ const WalletLockForm = ({ walletName, lockWallet }) => {
   return (
     <Formik initialValues={{}} validate={() => ({})} onSubmit={onSubmit}>
       {({ handleSubmit, isSubmitting }) => (
-        <rb.Form onSubmit={handleSubmit} noValidate>
-          <Link className="btn btn-outline-dark me-2" to={routes.wallet}>
+        <rb.Form className="d-flex justify-content-center align-items-center gap-3" onSubmit={handleSubmit} noValidate>
+          <Link className={classnames(styles['button-open'], 'btn', 'btn-dark')} to={routes.wallet}>
             {t('wallets.wallet_preview.button_open')}
           </Link>
-          <rb.Button variant="outline-dark" type="submit" disabled={isSubmitting}>
+          <rb.Button className={styles['button-lock']} variant="outline-dark" type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <div className="d-flex justify-content-center align-items-center">
-                <rb.Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
-                {t('wallets.wallet_preview.button_locking')}
+                <rb.Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
               </div>
             ) : (
-              t('wallets.wallet_preview.button_lock')
+              <div className="d-flex justify-content-center align-items-center">
+                <Sprite symbol="lock" width="24px" height="24px" />
+                {t('wallets.wallet_preview.button_lock')}
+              </div>
             )}
           </rb.Button>
         </rb.Form>
@@ -77,7 +81,7 @@ const WalletUnlockForm = ({ walletName, unlockWallet }) => {
               value={values.password}
               isInvalid={touched.password && errors.password}
             />
-            <rb.Button variant="outline-dark" className="py-1 px-3" type="submit" disabled={isSubmitting}>
+            <rb.Button variant="outline-dark" className={styles['button-unlock']} type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
                 <div className="d-flex justify-content-center align-items-center">
                   <rb.Spinner
@@ -91,10 +95,12 @@ const WalletUnlockForm = ({ walletName, unlockWallet }) => {
                   {t('wallets.wallet_preview.button_unlocking')}
                 </div>
               ) : (
-                t('wallets.wallet_preview.button_unlock')
+                <div className="d-flex justify-content-center align-items-center">
+                  <Sprite symbol="unlock" width="24px" height="24px" />
+                  {t('wallets.wallet_preview.button_unlock')}
+                </div>
               )}
             </rb.Button>
-            <rb.Form.Control.Feedback type="invalid">{errors.password}</rb.Form.Control.Feedback>
           </rb.InputGroup>
         </rb.Form>
       )}
@@ -197,7 +203,7 @@ export default function Wallet({
 
         setAlert({
           variant: already_locked ? 'warning' : 'success',
-          dismissible: false,
+          dismissible: true,
           message: already_locked
             ? t('wallets.wallet_preview.alert_wallet_already_locked', {
                 walletName: walletDisplayName(lockedWalletName),
@@ -248,10 +254,10 @@ export default function Wallet({
         <rb.Card.Body>
           <div className="w-100 d-flex justify-content-between align-items-center flex-wrap py-1">
             <div>
-              <rb.Card.Title>
+              <div className={styles['wallet-title']}>
                 {isActive ? (
                   <span style={{ position: 'relative' }}>
-                    <Link className="wallet-name" to={routes.wallet}>
+                    <Link className={styles['wallet-name']} to={routes.wallet}>
                       {walletDisplayName(name)}
                     </Link>
                     {makerRunning && <TabActivityIndicator isOn={true} />}
@@ -260,7 +266,7 @@ export default function Wallet({
                 ) : (
                   <>{walletDisplayName(name)}</>
                 )}
-              </rb.Card.Title>
+              </div>
 
               {isActive ? (
                 <span className="text-success">{t('wallets.wallet_preview.wallet_active')}</span>

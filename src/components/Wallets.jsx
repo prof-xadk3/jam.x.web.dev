@@ -60,7 +60,7 @@ export default function Wallets({ startWallet, stopWallet }) {
           setAlert({
             variant: 'info',
             message: t('wallets.alert_wallet_open', { currentWalletName: walletDisplayName(currentWallet.name) }),
-            dismissible: false,
+            dismissible: true,
           })
         }
       })
@@ -76,7 +76,7 @@ export default function Wallets({ startWallet, stopWallet }) {
   }, [currentWallet, reloadServiceInfo, t])
 
   return (
-    <div className="wallets">
+    <div>
       <PageTitle
         title={t('wallets.title')}
         subtitle={walletList?.length === 0 ? t('wallets.subtitle_no_wallets') : null}
@@ -111,7 +111,7 @@ export default function Wallets({ startWallet, stopWallet }) {
       <div className="d-flex justify-content-center">
         <Link
           to={routes.createWallet}
-          className={`btn mt-4 ${walletList?.length === 0 ? 'btn-lg btn-dark' : 'btn-outline-dark'}`}
+          className={`btn px-4 mt-4 ${walletList?.length === 0 ? 'btn-lg btn-dark' : 'btn-outline-dark'}`}
           data-testid="new-wallet-btn"
         >
           <div className="d-flex justify-content-center align-items-center">

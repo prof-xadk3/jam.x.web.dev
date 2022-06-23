@@ -1,5 +1,56 @@
+:global .form-control {
+  border-radius: 0.25rem 0 0 0.25rem !important;
+  z-index: 1010 !important;
+}
+
+.button-unlock:global.btn.btn-outline-dark {
+  min-width: 8rem;
+}
+
+.button-unlock svg {
+  margin-right: 0.25rem;
+  padding-bottom: 0.1rem;
+}
+
 @media (min-width: 768px) {
   .wallet-password-input {
     max-width: 350px;
   }
+}
+
+form > .button-open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  font-weight: 500;
+  height: 2rem;
+}
+
+form > .button-lock:global.btn.btn-outline-dark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  font-weight: 500;
+  height: 2rem;
+  min-width: 6.25rem;
+}
+
+.button-lock svg {
+  margin-right: 0.25rem;
+  padding-bottom: 0.1rem;
+}
+
+:global a:local.wallet-name {
+  text-decoration: none;
+  color: var(--bs-body-color);
+}
+
+.wallet-name:hover {
+  text-decoration: underline;
+}
+
+.wallet-title {
+  font-size: 1.125rem;
 }
