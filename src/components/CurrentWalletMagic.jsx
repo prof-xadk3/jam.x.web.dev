@@ -79,6 +79,12 @@ export default function CurrentWalletMagic() {
   }
 
   useEffect(() => {
+    if (settings.defaultWallet === undefined && currentWallet.name !== null) {
+      settingsDispatch({ defaultWallet: currentWallet.name })
+    }
+  }, [settings.defaultWallet, currentWallet.name, settingsDispatch])
+
+  useEffect(() => {
     const abortCtrl = new AbortController()
 
     setAlert(null)

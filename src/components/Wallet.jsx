@@ -119,6 +119,8 @@ export default function Wallet({
   startWallet,
   stopWallet,
   setAlert,
+  isSelected,
+  onSelected,
   ...props
 }) {
   const { t } = useTranslation()
@@ -251,37 +253,42 @@ export default function Wallet({
         onConfirm={onLockConfirmed}
       />
       <rb.Card {...props}>
-        <rb.Card.Body>
-          <div className="w-100 d-flex justify-content-between align-items-center flex-wrap py-1">
-            <div>
-              <div className={styles['wallet-title']}>
+        <rb.Card.Body className="px-0">
+          <div className="d-flex align-items-center gap-3">
+            <div
+              className={classnames(styles['radio-button'], { [styles['selected']]: isSelected })}
+              onClick={onSelected}
+            />
+            <div className="w-100 d-flex justify-content-between align-items-center flex-wrap py-1">
+              <div>
+                <div className={styles['wallet-title']}>
+                  {isActive ? (
+                    <span style={{ position: 'relative' }}>
+                      <Link className={styles['wallet-name']} to={routes.wallet}>
+                        {walletDisplayName(name)}
+                      </Link>
+                      {makerRunning && <TabActivityIndicator isOn={true} />}
+                      {coinjoinInProgress && <JoiningIndicator isOn={true} className="text-success" />}
+                    </span>
+                  ) : (
+                    <>{walletDisplayName(name)}</>
+                  )}
+                </div>
+
                 {isActive ? (
-                  <span style={{ position: 'relative' }}>
-                    <Link className={styles['wallet-name']} to={routes.wallet}>
-                      {walletDisplayName(name)}
-                    </Link>
-                    {makerRunning && <TabActivityIndicator isOn={true} />}
-                    {coinjoinInProgress && <JoiningIndicator isOn={true} className="text-success" />}
-                  </span>
+                  <span className="text-success">{t('wallets.wallet_preview.wallet_active')}</span>
                 ) : (
-                  <>{walletDisplayName(name)}</>
+                  <span className="text-muted">{t('wallets.wallet_preview.wallet_inactive')}</span>
                 )}
               </div>
-
-              {isActive ? (
-                <span className="text-success">{t('wallets.wallet_preview.wallet_active')}</span>
+              {showLockOptions ? (
+                <WalletLockForm walletName={name} lockWallet={lockWallet} />
               ) : (
-                <span className="text-muted">{t('wallets.wallet_preview.wallet_inactive')}</span>
+                <div className={`w-100 mt-3 mt-md-0 ${styles['wallet-password-input']}`}>
+                  {showUnlockOptions && <WalletUnlockForm walletName={name} unlockWallet={unlockWallet} />}
+                </div>
               )}
             </div>
-
-            {showLockOptions ? (
-              <WalletLockForm walletName={name} lockWallet={lockWallet} />
-            ) : (
-              <div className={`w-100 mt-3 mt-md-0 ${styles['wallet-password-input']}`}>
-                {showUnlockOptions && <WalletUnlockForm walletName={name} unlockWallet={unlockWallet} />}
-              </div>
-            )}
           </div>
         </rb.Card.Body>
       </rb.Card>

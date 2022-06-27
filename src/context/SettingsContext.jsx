@@ -9,6 +9,7 @@ const initialSettings = {
   showOnboarding: true,
   showCheatsheet: true,
   useAdvancedWalletMode: false,
+  defaultWallet: undefined,
 }
 
 const SettingsContext = createContext()

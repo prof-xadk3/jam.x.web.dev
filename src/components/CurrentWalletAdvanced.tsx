@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import * as rb from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 // @ts-ignore
+import { useSettings, useSettingsDispatch } from '../context/SettingsContext'
+// @ts-ignore
 import DisplayAccounts from './DisplayAccounts'
 // @ts-ignore
 import DisplayAccountUTXOs from './DisplayAccountUTXOs'
@@ -21,6 +23,8 @@ export default function CurrentWalletAdvanced() {
   const featureFidelityBondsEnabled = isFeatureEnabled('fidelityBonds')
 
   const { t } = useTranslation()
+  const settings = useSettings()
+  const settingsDispatch = useSettingsDispatch()
   const currentWallet = useCurrentWallet()
   const walletInfo = useCurrentWalletInfo()
   const reloadCurrentWalletInfo = useReloadCurrentWalletInfo()
@@ -29,6 +33,12 @@ export default function CurrentWalletAdvanced() {
   const [showUTXO, setShowUTXO] = useState(false)
   const [alert, setAlert] = useState<Alert | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (settings.defaultWallet === undefined && currentWallet?.name !== null) {
+      settingsDispatch({ defaultWallet: currentWallet?.name })
+    }
+  }, [settings.defaultWallet, currentWallet?.name, settingsDispatch])
 
   useEffect(() => {
     if (!currentWallet) {

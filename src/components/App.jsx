@@ -3,7 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom'
 import * as rb from 'react-bootstrap'
 import { Trans, useTranslation } from 'react-i18next'
 import { isFeatureEnabled } from '../constants/features'
-import Wallets from './Wallets'
+import UnlockWallet from './UnlockWallet'
 import CreateWallet from './CreateWallet'
 import Jam from './Jam'
 import Send from './Send'
@@ -123,14 +123,26 @@ export default function App() {
           {!sessionConnectionError && (
             <>
               <Route element={<Layout />}>
-                <Route path={routes.home} element={<Wallets startWallet={startWallet} stopWallet={stopWallet} />} />
+                <Route
+                  path={routes.home}
+                  element={
+                    settings.defaultWallet !== undefined ? (
+                      <UnlockWallet startWallet={startWallet} stopWallet={stopWallet} />
+                    ) : (
+                      <CreateWallet startWallet={startWallet} />
+                    )
+                  }
+                />
                 {currentWallet && (
                   <>
                     <Route path={routes.jam} element={<Jam />} />
                     <Route path={routes.send} element={<Send />} />
                     <Route path={routes.earn} element={<Earn />} />
                     <Route path={routes.receive} element={<Receive />} />
-                    <Route path={routes.settings} element={<Settings stopWallet={stopWallet} />} />
+                    <Route
+                      path={routes.settings}
+                      element={<Settings startWallet={startWallet} stopWallet={stopWallet} />}
+                    />
                     {isFeatureEnabled('fidelityBonds') && (
                       <Route path={routes.fidelityBonds} element={<FidelityBond />} />
                     )}

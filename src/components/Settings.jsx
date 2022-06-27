@@ -6,6 +6,7 @@ import Sprite from './Sprite'
 import Seedphrase from './Seedphrase'
 import ToggleSwitch from './ToggleSwitch'
 import Alert from './Alert'
+import Wallets from './Wallets'
 import { ConfirmModal } from './Modal'
 import { useSettings, useSettingsDispatch } from '../context/SettingsContext'
 import { useCurrentWallet } from '../context/WalletContext'
@@ -83,10 +84,11 @@ function SeedModal({ show = false, onHide }) {
   )
 }
 
-export default function Settings({ stopWallet }) {
+export default function Settings({ startWallet, stopWallet }) {
   const [showingSeed, setShowingSeed] = useState(false)
   const [lockingWallet, setLockingWallet] = useState(false)
   const [showConfirmLockModal, setShowConfirmLockModal] = useState(null)
+  const [showWalletManagement, setShowWalletManagement] = useState(false)
   const [alert, setAlert] = useState(null)
 
   const { t } = useTranslation()
@@ -157,6 +159,14 @@ export default function Settings({ stopWallet }) {
             lockWallet({ force: true, destination: showConfirmLockModal?.destination })
           }}
         />
+        {showWalletManagement && (
+          <Wallets
+            startWallet={startWallet}
+            stopWallet={stopWallet}
+            show={showWalletManagement}
+            onHide={() => setShowWalletManagement(false)}
+          />
+        )}
         <div className={styles['settings-group-container']}>
           <rb.Button
             variant="outline-dark"
@@ -245,10 +255,14 @@ export default function Settings({ stopWallet }) {
               </>
             )}
           </rb.Button>
-          <Link to={routes.walletList} className={`btn btn-outline-dark ${styles['settings-btn']}`}>
+          <rb.Button
+            variant="outline-dark"
+            className={styles['settings-btn']}
+            onClick={() => setShowWalletManagement(true)}
+          >
             <Sprite symbol="wallet" width="24" height="24" />
             {t('settings.button_switch_wallet')}
-          </Link>
+          </rb.Button>
           <rb.Button
             variant="outline-dark"
             className={styles['settings-btn']}

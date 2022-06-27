@@ -12,6 +12,7 @@ import * as Api from '../libs/JmWalletApi'
 import { routes } from '../constants/routes'
 import { isFeatureEnabled } from '../constants/features'
 import styles from './CreateWallet.module.css'
+import { useSettings, useSettingsDispatch } from '../context/SettingsContext'
 
 const PreventLeavingPageByMistake = () => {
   // prompt users before refreshing or closing the page when this component is present.
@@ -340,6 +341,8 @@ export default function CreateWallet({ startWallet }) {
   const { t } = useTranslation()
   const serviceInfo = useServiceInfo()
   const navigate = useNavigate()
+  const settings = useSettings()
+  const settingsDispatch = useSettingsDispatch()
 
   const [alert, setAlert] = useState(null)
   const [createdWallet, setCreatedWallet] = useState(null)
