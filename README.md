@@ -1,3 +1,9 @@
+# Why not rely on JAMs - for at-least a "year"?
+> It's JS, API, Markup. - meaning its DAMN vulnerable to "js" based attacks. So, please do use your native clients. - Trust them, and the green-padlock thingy hehe.
+---
+See, JS can be fully bugged. So, note to the devs. use `TS` and `deno` along with `cloud resources` since anyways `CDNs owns the "maximum" market share.` And, #literally do not misuse these cool APIs - yk its such a "literal PAIN IN THE ASS" when someone just `GET`s in and starts exploiting protocol(s). I mean, it works but you don't come banging the APIs!? if ur a tru `nostr`-ich. =)
+---
+~
 <div align="center">
   <img src="docs/assets/readme-header-light.svg#gh-light-mode-only" alt="Jam: Your sats. Your privacy. Your profit.">
   <img src="docs/assets/readme-header-dark.svg#gh-dark-mode-only" alt="Jam: Your sats. Your privacy. Your profit.">
